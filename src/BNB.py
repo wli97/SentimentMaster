@@ -1,4 +1,6 @@
-class BNB(object):
+import math
+
+class BNB():
 
     def __init__(self, count_vect):
         self.sum = None

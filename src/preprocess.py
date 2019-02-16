@@ -17,4 +17,4 @@ for filename in os.listdir("../src/train/neg"):
         data = f.read().lower()
         x.append(data)
  
- X_train, X_test, y_train, y_test = train_test_split(x, y, train_size=0.8, test_size=0.2)
+X_train, X_test, y_train, y_test = train_test_split(x, y, train_size=0.8, test_size=0.2)
