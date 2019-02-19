@@ -5,9 +5,9 @@ from sklearn import metrics
 
 def SVM(X_train, X_test, y_train, y_test):
   custom_feature_pipeline = Pipeline([
-      ('vect', TfidfVectorizer(encoding='utf-8',strip_accents='unicode',max_df=0.5, min_df=2)),
-      ('norm', Normalizer()),
-      ('svc', SVC(kernel='linear', gamma='scale'))
+    ('vect', TfidfVectorizer(encoding='utf-8',strip_accents='unicode',stop_words='english')),
+    ('norm', Normalizer()),
+    ('clf-svm', SGDClassifier(random_state=69, max_iter=1000, tol=1e-3)),
   ])
 
   custom_feature_pipeline.fit(X_train, y = y_train)
