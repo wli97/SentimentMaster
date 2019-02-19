@@ -22,4 +22,4 @@ def MNB(X_train, y_train, X_test, y_test, tdidf=True):
     pclf.fit(X_train, y_train)
     y_pred = pclf.predict(X_test)
     print(metrics.classification_report(y_test, y_pred))
-    return pclf
+    return y_pred
