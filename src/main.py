@@ -5,7 +5,7 @@ import codecs
 import BNB as BNB
 
 # Creates single .txt file with all review text
-def read_data(directory, rating, test=False):
+def read_data(directory, rating):
 
     X = []
 
@@ -13,10 +13,7 @@ def read_data(directory, rating, test=False):
         with open(directory + filename, encoding='utf-8', mode='r') as f:
             data = f.read().lower()
             X.append(data)
-    if test:
-        f = codecs.open('submit' + '.txt', 'w', 'utf-8')
-    else:
-        f = codecs.open(str(rating) + '.txt', 'w', 'utf-8')
+    f = codecs.open(str(rating) + '.txt', 'w', 'utf-8')
 
     for point in X:
         point.replace('\n', '')
