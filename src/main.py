@@ -40,11 +40,11 @@ def read_test(directory):
         with open(directory + str(i) + '.txt', encoding='utf-8', mode='r') as f:
             data = f.read().lower()
             X.append(data)
-        f = codecs.open('submit' + '.txt', 'w', 'utf-8')
-        for point in X:
-            point.replace('\n', '')
-            f.write(point + '\n')
-        f.close()
+    f = codecs.open('submit' + '.txt', 'w', 'utf-8')
+    for point in X:
+        point.replace('\n', '')
+        f.write(point + '\n')
+    f.close()
      
 # Performs custom BNB on training data
 def BernoulliNB(x, y):
