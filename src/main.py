@@ -8,6 +8,7 @@ import MNB
 import SVM
 import numpy as np
 import random
+import csv
 
 
 # Creates single .txt file with all review text
@@ -94,6 +95,12 @@ def validate_model(folds, X, y, predict_fct):
 
     return accuracy/folds
 
+def submitModel(model, filename):
+    y_sub = model.predict(submit[0])
+    with open(filename, "w",newline="") as f:
+        writer = csv.writer(f)
+        writer.writerows([[i] for i in y_sub])
+
 # Performs custom BNB on training data
 def BernoulliNB(x, y):
   count_vect = CountVectorizer(max_df=0.5,min_df=5).fit(X_train)
@@ -105,10 +112,12 @@ def BernoulliNB(x, y):
 # Read training data (only run commented lines once)
 # read_data('train/pos/', 1)
 # read_data('train/neg/', 0)
+# read_test('test/')
 positive = read_data_txt('1.txt', 1)
 negative = read_data_txt('0.txt', 0)
 X = positive[0] + negative[0]
 y = positive[1] + negative[1]
+sunmit = read_data_txt('submit.txt',0)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, test_size=0.2)
 
