@@ -1,9 +1,11 @@
-# Ignore training data
+# Ignore data
 src/neg
 src/pos
 src/train
 0.txt
 1.txt
+test
+submit.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
