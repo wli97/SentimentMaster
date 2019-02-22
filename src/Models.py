@@ -101,12 +101,15 @@ def MNB(X_train, y_train, X_test, tdidf=True):
     return (y_pred)
 
 
-# SVM
+# SVM - Best Model
 def SVM(X_train, y_train, X_test):
+  stop_words=['in','of','at','a','the','this','we','i','/div','/br']
   custom_feature_pipeline = Pipeline([
-    ('vect', TfidfVectorizer(encoding='utf-8',strip_accents='unicode',stop_words='english')),
+    ('lem', CountVectorizer(tokenizer=LemmaTokenizer(),
+                                strip_accents = 'unicode', stop_words=stop_words, ngram_range=(1, 2))), 
+    ('tdif', TfidfTransformer()),
     ('norm', Normalizer()),
-    ('clf-svm', SGDClassifier(random_state=69, max_iter=1000, tol=1e-3)),
+    ('clf-svm', SGDClassifier(random_state=69, max_iter=1000, tol=1e-4)),
   ])
 
   custom_feature_pipeline.fit(X_train, y = y_train)
