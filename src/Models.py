@@ -15,12 +15,70 @@ def base_model(X_train, y_train, X_test):
     return np.random.randint(2, size=len(X_test))
 
 # PIPELINE MODEL (returns prediction of model defined by pipeline
-def pipe_model(X_train, y_train, X_test, pipeline):
+class pipe_model():
 
-    pipeline.fit(X_train, y=y_train)
-    y_pred = pipeline.predict(X_test)
+    def __init__(self, pipeline):
+        self.pipeline = pipeline
 
-    return y_pred
+    def predict(self, X_train, y_train, X_test):
+
+        def helper(x):
+            if x<0.5:
+                return 0
+            else:
+                return 1
+
+        helper = np.vectorize(helper)
+
+        self.pipeline.fit(X_train, y_train)
+        y_pred = helper(self.pipeline.predict(X_test))
+        return y_pred
+
+
+class stacking_model ():
+    def __init__(self, pipelines, meta_pipeline):
+        self.pipelines = pipelines
+        self.X = False
+        self.meta_pipeline = meta_pipeline
+
+    def predict_sub(self, X_train, y_train, X_test):
+
+        X = True
+
+        for pipeline in self.pipelines:
+            pipe = pipe_model(pipeline)
+            train_pred = pipe.predict(X_train, y_train, X_train + X_test)
+
+            # self.X[str(self.pipelines.index(pipeline))] = train_pred
+
+            if isinstance(X, bool):
+                X = train_pred
+            else:
+                X = np.vstack((X, train_pred))
+
+        return X
+
+
+    def predict(self, X_train, y_train, X_test):
+
+        self.X = self.predict_sub(X_train, y_train, X_test)
+
+        pipe = pipe_model(self.meta_pipeline)
+
+        self.X = np.transpose(self.X)
+
+        split = np.split(self.X, [len(X_train)])
+        X_train = split[0]
+        X_test = split[1]
+
+        y= []
+        for datum in X_test:
+            y.append(int(sum(datum)/2))
+
+        return y
+        # return pipe.predict(X_train, y_train, X_test)
+
+
 
 # BERNOUILLI NAIVE BAYES
 class BNB():

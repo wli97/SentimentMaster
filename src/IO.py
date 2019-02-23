@@ -50,3 +50,39 @@ def submitModel(model, X_train, y_train, X_test, filename):
     with open(filename, "w",newline="") as f:
         writer = csv.writer(f)
         writer.writerows([[i] for i in y_sub])
+
+
+def read_lexicon_afinn(filename):
+    with open(filename, 'r') as f:
+        word_scores = f.readlines()
+
+    words = {}
+    for word in word_scores:
+
+        list = word.split('\t')
+
+        words[list[0]] = int(list[1])
+
+    return words
+
+def read_lexicon_ole():
+    words = {}
+
+    with open('negative-words.txt', 'r') as f:
+        word_scores = f.read().splitlines()
+        for word in word_scores:
+            words[word] = -1
+
+    with open('positive-words.txt', 'r') as f:
+        word_scores = f.read().splitlines()
+        for word in word_scores:
+            words[word] = 1
+
+    return words
+
+def print_test(name, results):
+    print('Testing ' + name + ':')
+    print('----------------------------')
+    print('Accuracy: ' + str(results[0]))
+    print('f1: ' + str(results[1]))
+    print()
