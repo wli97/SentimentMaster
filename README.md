@@ -7,3 +7,9 @@ Compute the log-likelihood for both outcomes of y. There might be a mistake on t
 ### Multinomial Naives Bayes:
 The hypothesis is that MNB outperforms BNB even though the dataset consists only of two classes. Reason can be found below.
 https://datascience.stackexchange.com/questions/27624/difference-between-bernoulli-and-multinomial-naive-bayes
+
+### SGDC Linear SVM Classifier:
+Efficiency
+
+### VotingClassifier Ensemble Method:
+Performance
